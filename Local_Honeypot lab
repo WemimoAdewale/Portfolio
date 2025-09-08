@@ -1,0 +1,51 @@
+# The Honeypot Odyssey: Catching My First Attacker in a Home Lab
+
+#The Call to Adventure
+"What does a cyber attack actually look like?" This question sparked my journey. I knew theory wasn't enough; I needed to see it for myself. My mission: build a trap for hackers—a honeypot—in a safe, isolated environment and document what I found.
+
+#(The "Why")
+I entered my digital lab (a Kali Linux VM on VirtualBox) with a clear objective:
+*   To move from theoretical knowledge to practical, hands-on experience.
+*   To understand the tactics, techniques, and procedures (TTPs) of automated attacks.
+*   To safely learn the intricacies of a common security tool by building a controlled crisis.
+
+# (The "How")
+My journey was not without obstacles. The path to a working honeypot was paved with configuration errors and dependency issues.
+
+The Setup:
+1.  Fortifying the Lab: I created a safe, isolated network using VirtualBox's Host-Only Networking to ensure no real traffic could enter or exit my physical machine.
+2.  Choosing the Bait: I selected Cowrie, a medium-interaction SSH honeypot, known for its ability to convincingly mimic a real system and log intricate attacker behavior.
+3.  The Configuration Labyrinth: This was my biggest challenge. The version of Cowrie I used had a different configuration structure than older tutorials.
+    *   I discovered the critical setting was `listen_endpoints` in the `[ssh]` section of `cowrie.cfg`.
+    *   After careful troubleshooting, I configured it to listen on my host-only IP  and port `2222`, while presenting itself to attackers as port `22`.
+
+The Technical Arsenal:
+*   Platform: Kali Linux on VirtualBox
+*   Tool: Cowrie Honeypot
+*   Network: Host-Only Adapter (Isolated)
+*   Protocol: SSH
+
+ (The "What/Outcome")
+The moment of truth arrived. I started the honeypot and became the attacker, SSH-ing into my own trap.
+
+The Result was immediate and fascinating ( honeypot_images)
+
+I had successfully captured an attack. The logs sprang to life, recording every one of my simulated login attempts. The honeypot was working perfectly, faithfully logging every username and password I tried.
+
+Key Findings & Intelligence:
+*   Time to First "Attack": Instantaneous. The moment the service was up, it was ready to log activity.
+*   Attack Method: Automated brute-force login attempts using common credentials.
+*   Value of Isolation: Using a host-only network proved to be an incredibly safe and effective way to learn about high-risk tools.
+
+This project was far more than just getting a tool to run. It was a deep dive into the attacker's mindset and the defender's tools.
+
+I returned with three key insights:
+1.  The Internet is Noisy:Even in my isolated lab, simulating exposure showed how relentless automated attacks are. This underscores the critical need for strong passwords and SSH key authentication.
+2.  Resilience Through Troubleshooting: The value of this project was in the errors. Solving the configuration and dependency problems taught me more than a perfectly smooth installation ever could.
+3.  The Power of a Safe Lab: Building a controlled environment is the first and most important step for any security practitioner. It allows for aggressive learning without any real-world risk.
+
+This honeypot is now a permanent part of my home lab, a silent sentinel ready to teach me more with every interaction.
+
+
+Disclaimer
+This project was conducted in a strictly controlled, isolated lab environment on my own hardware. Honeypots can attract malicious attention and should never be deployed on a network without explicit authorization.
